@@ -23,7 +23,8 @@ namespace Sats.HTMLtoPdf
             var arguments = string.Join(" ", chromeOptions.Select(c => c.ToString()));
 
 
-            var output = Path.Combine(Environment.CurrentDirectory, $"printout_{new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds()}.pdf");
+            var output = !string.IsNullOrWhiteSpace(chromeDetails.OutputPath) ? chromeDetails.OutputPath :
+                Path.Combine(Environment.CurrentDirectory, $"printout_{new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds()}.pdf");
 
             using (var p = new Process())
             {
@@ -47,5 +48,6 @@ namespace Sats.HTMLtoPdf
     {
         public string HtmlPath { get; set; }
         public string ChromePath { get; set; }
+        public string OutputPath { get; set; }
     }
 }
