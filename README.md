@@ -2,7 +2,11 @@
 Converts HTML content to PDF using chrome executable 
 
 
-#Note : Requires Chrome executable 
+<b>#Note : Requires Chrome executable **</b>
+
+
+#Nuget Link  - https://www.nuget.org/packages/Sats.HTMLtoPdf 
+
 
 
 #Usage
