@@ -52,7 +52,6 @@ namespace Sats.HTMLtoPdf
             var outputBuilder = new StringBuilder();
             var errorBuilder = new StringBuilder();
             var exitCode = string.Empty;
-            int timeout = 100;
 
             if (options.Count == 0)
                 return null;
@@ -70,58 +69,35 @@ namespace Sats.HTMLtoPdf
             var output = !string.IsNullOrWhiteSpace(chromeDetails.OutputPath) ? chromeDetails.OutputPath :
                 Path.Combine(Environment.CurrentDirectory, $"printout_{new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds()}.pdf");
 
-            using (AutoResetEvent outputWaitHandle = new AutoResetEvent(false))
-            using (AutoResetEvent errorWaitHandle = new AutoResetEvent(false))
+            Process p = new Process()
             {
-                using (Process process = new Process())
+                StartInfo = new ProcessStartInfo()
                 {
-                    process.StartInfo.FileName = chromeDetails.ChromePath;
-                    process.StartInfo.Arguments = $"{arguments} --print-to-pdf={output} {chromeDetails.HtmlPath}";
-                    process.StartInfo.UseShellExecute = false;
-                    process.StartInfo.RedirectStandardOutput = true;
-                    process.StartInfo.RedirectStandardError = true;
-
-                    try
-                    {
-                        process.OutputDataReceived += (sender, e) =>
-                        {
-                            if (e.Data == null)
-                                outputWaitHandle.Set();
-                            else
-                                outputBuilder.AppendLine(e.Data);
-                        };
-                        process.ErrorDataReceived += (sender, e) =>
-                        {
-                            if (e.Data == null)
-                                errorWaitHandle.Set();
-                            else
-                                errorBuilder.AppendLine(e.Data);
-                        };
-
-                        process.Start();
-
-                        process.BeginOutputReadLine();
-                        process.BeginErrorReadLine();
-
-                        if (process.WaitForExit(timeout))
-                            exitCode = Convert.ToString(process.ExitCode);
-                        else
-                            // timed out
-
-                            output = outputBuilder.ToString();
-                    }
-                    finally
-                    {
-                        outputWaitHandle.WaitOne(timeout);
-                        errorWaitHandle.WaitOne(timeout);
-                    }
+                    FileName = chromeDetails.ChromePath,
+                    Arguments = $"{arguments} --print-to-pdf={output} {chromeDetails.HtmlPath}",
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    RedirectStandardInput = true
                 }
-            }
+            };
+            p.Start();
 
-            if (File.Exists(output) && chromeDetails.DeleteOutputFile)
+            StreamWriter streamWriter = p.StandardInput;
+            StreamReader outputReader = p.StandardOutput;
+            StreamReader errorReader = p.StandardError;
+            while (!outputReader.EndOfStream)
+                outputBuilder.Append(outputReader.ReadLine());
+
+            while (!errorReader.EndOfStream)
+                errorBuilder.Append(errorReader.ReadLine());
+
+            if (File.Exists(output))
             {
                 var file = File.ReadAllBytes(output);
-                File.Delete(output);
+
+                if (File.Exists(output) && chromeDetails.DeleteOutputFile)
+                    File.Delete(output);
 
                 return new Output()
                 {
