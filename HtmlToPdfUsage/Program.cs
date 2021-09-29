@@ -16,9 +16,9 @@ namespace HtmlToPdfUsage
                                     b.DisableGPU();
                                     b.WithoutHeader();
 
-                                }).ToPdf(new ChromeDetails() { ChromePath = chromePath, HtmlPath = url, OutputPath = @"d:\print.pdf" });
+                                }).Pdf(new ChromeDetails() { ChromePath = chromePath, HtmlPath = url });
 
-            File.WriteAllBytes(@"d:\print.pdf", pdf.FileDetails.File);
+            File.WriteAllBytes(@"d:\print.pdf", pdf);
         }
     }
 }
