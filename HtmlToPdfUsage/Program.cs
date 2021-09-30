@@ -7,18 +7,25 @@ namespace HtmlToPdfUsage
     {
         static void Main(string[] args)
         {
-            var url = @"d:\Vaccination.html";
+            var url = @"d:\test.html";
             var chromePath = @"C:\Program Files\Google\Chrome\Application\chrome.exe";
 
-            var pdf = new ChromeOptions().AddOptions(b =>
+            var output = new ChromeOptions().AddOptions(b =>
                                 {
                                     b.Headless();
                                     b.DisableGPU();
                                     b.WithoutHeader();
 
-                                }).ToPdf(new ChromeDetails() { ChromePath = chromePath, HtmlPath = url });
+                                }).ToPdf(new ChromeDetails()
+                                {
+                                    ChromePath = chromePath,
+                                    HtmlPath = url,
+                                    DeleteOutputFile = true, //optional
+                                   // OutputPath = @"d:\print.pdf" // (add if Environment.CurrentDirectory does not have access rights)
+                                });
 
-            File.WriteAllBytes(@"d:\print.pdf", pdf.FileDetails.File);
+
+            File.WriteAllBytes(@"d:\print.pdf", output.FileDetails.File);
         }
     }
 }

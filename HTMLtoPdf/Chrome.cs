@@ -114,7 +114,15 @@ namespace Sats.HTMLtoPdf
                     }
                 };
             }
-            else return null;
+            else return new Output()
+            {
+                ProcessDetails = new ProcessDetails()
+                {
+                    ExitCode = exitCode,
+                    Output = Convert.ToString(outputBuilder),
+                    Error = Convert.ToString(errorBuilder),
+                }
+            };
         }
 
     }
