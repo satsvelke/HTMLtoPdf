@@ -49,3 +49,7 @@ Converts HTML content to PDF using chrome executable
 
 
         File.WriteAllBytes(@"d:\print.pdf", output.FileDetails.File);
+        
+output.FileDetails.File will have byte array of created pdf, output.ProcessDetails will have output details like errors
+
+
