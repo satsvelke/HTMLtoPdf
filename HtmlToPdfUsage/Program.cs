@@ -7,7 +7,7 @@ namespace HtmlToPdfUsage
     {
         static void Main(string[] args)
         {
-            var url = @"d:\test.html";
+            var url = @"d:\NuGet Gallery _ Sats.HTMLtoPdf 2.0.0.html";
             var chromePath = @"C:\Program Files\Google\Chrome\Application\chrome.exe";
 
             var output = new ChromeOptions().AddOptions(b =>
@@ -15,7 +15,6 @@ namespace HtmlToPdfUsage
                                     b.Headless();
                                     b.DisableGPU();
                                     b.WithoutHeader();
-
                                 }).ToPdf(new ChromeDetails()
                                 {
                                     ChromePath = chromePath,

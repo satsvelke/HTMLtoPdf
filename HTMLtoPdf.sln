@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HTMLtoPdf", "HTMLtoPdf\HTML
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlToPdfUsage", "HtmlToPdfUsage\HtmlToPdfUsage.csproj", "{3654976C-AE58-4299-9571-8322F2ACFA00}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sats.Core.HTMLtoPdf", "Sats.Core.HTMLtoPdf", "{282CC593-4475-4D8E-8F0B-3C5A7A662FB9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

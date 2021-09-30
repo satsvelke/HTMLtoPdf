@@ -32,7 +32,15 @@
         {
             if (!options.ChromeOptions.Contains(Constants.DisableGPU))
                 options.ChromeOptions.Add(Constants.DisableGPU);
-            
+
+            return this;
+        }
+
+        public PolicyBuilder RemoteDebugging(int port)
+        {
+            if (!options.ChromeOptions.Contains(Constants.RemoteDebugging))
+                options.ChromeOptions.Add($"{Constants.RemoteDebugging}={port}");
+
             return this;
         }
 
