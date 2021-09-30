@@ -26,3 +26,26 @@ Converts HTML content to PDF using chrome executable
 
                    File.WriteAllBytes(@"d:\print.pdf", pdf);                          
                     
+                    
+  #Version 2.1 Usage 
+    
+    
+            var url = @"d:\convert.html";
+        var chromePath = @"C:\Program Files\Google\Chrome\Application\chrome.exe";
+
+        var output = new ChromeOptions().AddOptions(b =>
+                            {
+                                b.Headless();
+                                b.DisableGPU();
+                                b.WithoutHeader();
+
+                            }).ToPdf(new ChromeDetails()
+                            {
+                                ChromePath = chromePath,
+                                HtmlPath = url,
+                                DeleteOutputFile = true, //optional
+                               // OutputPath = @"d:\print.pdf" // (add if Environment.CurrentDirectory does not have access rights)
+                            });
+
+
+        File.WriteAllBytes(@"d:\print.pdf", output.FileDetails.File);
