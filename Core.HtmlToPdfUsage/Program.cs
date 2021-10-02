@@ -1,0 +1,30 @@
+﻿using Sats.Core.HTMLToPdf;
+using System.IO;
+
+namespace Core.HtmlToPdfUsage
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var url = @"d:\test.html";
+            var chromePath = @"C:\Program Files\Google\Chrome\Application\chrome.exe";
+
+            var output = new ChromeOptions().AddOptions(b =>
+            {
+                b.Headless();
+                b.DisableGPU();
+                b.WithoutHeader();
+            }).ToPdf(new ChromeDetails()
+            {
+                ChromePath = chromePath,
+                HtmlPath = url,
+                DeleteOutputFile = true, //optional
+                                         // OutputPath = @"d:\print.pdf" // (add if Environment.CurrentDirectory does not have access rights)
+            });
+
+
+            File.WriteAllBytes(@"d:\print.pdf", output.FileDetails.File);
+        }
+    }
+}
