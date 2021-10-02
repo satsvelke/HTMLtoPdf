@@ -32,6 +32,8 @@ var url = @"d:\convert.html";
 
     File.WriteAllBytes(@"d:\print.pdf", output.FileDetails.File);</PackageReleaseNotes>
     <PackageLicenseFile>licence.txt</PackageLicenseFile>
+    <PackageIcon>p.png</PackageIcon>
+    <PackageIconUrl />
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -39,6 +41,10 @@ var url = @"d:\convert.html";
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\..\..\..\Downloads\p.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
     <None Include="..\licence.txt">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
