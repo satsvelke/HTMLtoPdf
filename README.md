@@ -1,5 +1,7 @@
 Nuget package 
 .net framework - https://www.nuget.org/packages/Sats.HTMLtoPdf
+
+
 Core 3.1 - https://www.nuget.org/packages/Sats.Core.HTMLToPdf
 
 
@@ -10,7 +12,7 @@ Converts HTML content to PDF using chrome executable
 <b>#Note : Requires Chrome executable **</b>
 
 
-#Nuget Link  - https://www.nuget.org/packages/Sats.HTMLtoPdf 
+
 
 
 
