@@ -14,27 +14,7 @@ Converts HTML content to PDF using chrome executable
 
 
 
-
-
 #Usage
-
-           
-                  var url = @"d:\Vaccination.html";
-                  var chromePath = @"C:\Program Files\Google\Chrome\Application\chrome.exe";
-                  
-                  // returns byte array of file 
-                  var pdf = new ChromeOptions().AddOptions(b =>
-                                              {
-                                                  b.Headless();
-                                                  b.DisableGPU();
-                                                  b.WithoutHeader();
-
-                                              }).Pdf(new ChromeDetails() { ChromePath = chromePath, HtmlPath = url });
-
-                   File.WriteAllBytes(@"d:\print.pdf", pdf);                          
-                    
-                    
-  #Version 2.1 Usage 
     
     
             var url = @"d:\convert.html";
@@ -58,5 +38,8 @@ Converts HTML content to PDF using chrome executable
         File.WriteAllBytes(@"d:\print.pdf", output.FileDetails.File);
         
 output.FileDetails.File will have byte array of created pdf, output.ProcessDetails will have output details like errors
+
+
+#For Web Application (or after release)# Go to yourapplication pool → Advanced Settings --> Process Model --> Set Identity to Local
 
 
