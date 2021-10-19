@@ -37,9 +37,13 @@ Converts HTML content to PDF using chrome executable
 
         File.WriteAllBytes(@"d:\print.pdf", output.FileDetails.File);
         
-output.FileDetails.File will have byte array of created pdf, output.ProcessDetails will have output details like errors
 
 
-#For Web Application (or after release)# Go to yourapplication pool → Advanced Settings --> Process Model --> Set Identity to Local
+
+
+#For Web Application (or after release)#
+                      
+                      
+                      Go to yourapplication pool → Advanced Settings --> Process Model --> Set Identity to Local
 
 
