@@ -65,6 +65,15 @@ namespace Sats.Core.HTMLToPdf
             var arguments = string.Join(" ", chromeOptions.Select(c => c.ToString()));
 
 
+            string tempUserDirectory = string.Empty;
+
+            if (string.IsNullOrWhiteSpace(chromeDetails.UserDirectoryPath))
+                tempUserDirectory = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+            else tempUserDirectory = chromeDetails.UserDirectoryPath;
+
+            Directory.CreateDirectory(tempUserDirectory);
+
+
             var output = !string.IsNullOrWhiteSpace(chromeDetails.OutputPath) ? chromeDetails.OutputPath :
                 Path.Combine(Environment.CurrentDirectory, $"printout_{new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds()}.pdf");
 
@@ -73,7 +82,7 @@ namespace Sats.Core.HTMLToPdf
                 StartInfo = new ProcessStartInfo()
                 {
                     FileName = chromeDetails.ChromePath,
-                    Arguments = $"{arguments} --print-to-pdf={output} {chromeDetails.HtmlPath}",
+                    Arguments = $"{arguments} --disable-print-preview --user-data-dir={tempUserDirectory} --print-to-pdf={output} {chromeDetails.HtmlPath}",
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
@@ -90,6 +99,9 @@ namespace Sats.Core.HTMLToPdf
 
             while (!errorReader.EndOfStream)
                 errorBuilder.Append(errorReader.ReadLine());
+
+
+            if (Directory.Exists(tempUserDirectory)) Directory.Delete(tempUserDirectory, true);
 
             if (File.Exists(output))
             {
@@ -133,6 +145,7 @@ namespace Sats.Core.HTMLToPdf
         public string ChromePath { get; set; }
         public string OutputPath { get; set; }
         public bool DeleteOutputFile { get; set; } = true;
+        public string? UserDirectoryPath { get; set; }
     }
 
     public class Output

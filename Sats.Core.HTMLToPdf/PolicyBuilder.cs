@@ -1,4 +1,7 @@
-﻿namespace Sats.Core.HTMLToPdf
+﻿using System.IO;
+using System;
+
+namespace Sats.Core.HTMLToPdf
 {
     public class PolicyBuilder
     {

@@ -7,7 +7,7 @@ namespace Core.HtmlToPdfUsage
     {
         static void Main(string[] args)
         {
-            var url = @"d:\test.html";
+            var url = @"d:\3bc00512-c01a-4f6d-a26e-77616ef51807.html";
             var chromePath = @"C:\Program Files\Google\Chrome\Application\chrome.exe";
 
             var output = new ChromeOptions().AddOptions(b =>
@@ -19,10 +19,9 @@ namespace Core.HtmlToPdfUsage
             {
                 ChromePath = chromePath,
                 HtmlPath = url,
-                DeleteOutputFile = true, //optional
-                                         // OutputPath = @"d:\print.pdf" // (add if Environment.CurrentDirectory does not have access rights)
+                DeleteOutputFile = true,
+                UserDirectoryPath = "d:\\userdir"
             });
-
 
             File.WriteAllBytes(@"d:\print.pdf", output.FileDetails.File);
         }
