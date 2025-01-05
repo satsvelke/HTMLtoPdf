@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp3.1;net5.0;net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
+    <Company>PinchTech Pvt. Ltd</Company>
+    <Authors>satsvelke</Authors>
+    <Description>Convert Html file To Pdf using chrome executable</Description>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Sats.Core.Htmltopdf.snk</AssemblyOriginatorKeyFile>
+    <PackageLicenseExpression></PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/satsvelke/HTMLtoPdf</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/satsvelke/HTMLtoPdf</RepositoryUrl>
+    <PackageTags>#HtmlToPdf #Core</PackageTags>
+    <PackageReleaseNotes>Usage   
+var url = @"d:\convert.html";
+    var chromePath = @"C:\Program Files\Google\Chrome\Application\chrome.exe";
+
+    var output = new ChromeOptions().AddOptions(b =&gt;
+                        {
+                            b.Headless();
+                            b.DisableGPU();
+                            b.WithoutHeader();
+
+                        }).ToPdf(new ChromeDetails()
+                        {
+                            ChromePath = chromePath,
+                            HtmlPath = url,
+                            DeleteOutputFile = true, //optional
+                           // OutputPath = @"d:\print.pdf" // (add if Environment.CurrentDirectory does not have access rights)
+                        });
+
+
+    File.WriteAllBytes(@"d:\print.pdf", output.FileDetails.File);</PackageReleaseNotes>
+    <PackageLicenseFile>licence.txt</PackageLicenseFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningLevel>0</WarningLevel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\licence.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
