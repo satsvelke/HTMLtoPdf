@@ -2,7 +2,7 @@ Nuget package
 .net framework - https://www.nuget.org/packages/Sats.HTMLtoPdf
 
 
-Core 3.1 - https://www.nuget.org/packages/Sats.Core.HTMLToPdf
+Core  - https://www.nuget.org/packages/Sats.Core.HTMLToPdf
 
 
 # HTMLtoPdf
